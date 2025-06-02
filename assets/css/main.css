@@ -1,0 +1,11 @@
+@import "tailwindcss";
+.bg-primary {
+  background-color: var(--primary);
+}
+* {
+  font-family: cursive;
+}
+:root {
+  --primary: #2f2010;
+  --accent: #a65330;
+}

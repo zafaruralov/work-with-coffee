@@ -1,0 +1,140 @@
+<template>
+  <div v-if="modalConfig.isOpen" class="fixed inset-0 pointer-events-none" :style="{ zIndex: modalConfig.zIndex }">
+    <div
+      ref="modalRef"
+      class="absolute bg-white rounded-lg shadow-xl pointer-events-auto"
+      :class="{ 'w-full max-w-2xl': !modalConfig.isMinimized, 'w-64': modalConfig.isMinimized }"
+      :style="{
+        transform: `translate(${position.x}px, ${position.y}px)`,
+        left: '50%',
+        top: '50%',
+        marginLeft: '-50%',
+        marginTop: '-25%'
+      }"
+      @mousedown="bringToFront"
+    >
+      <div
+        ref="headerRef"
+        class="bg-gray-800 text-white px-4 py-3 rounded-t-lg cursor-move select-none flex items-center justify-between"
+        @mousedown="startDrag"
+      >
+        <h2 class="text-lg font-semibold">{{ modalConfig.title }}</h2>
+        <div class="flex items-center space-x-2">
+          <button
+            class="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors"
+            @click="minimizeModal"
+          >
+            <span class="text-xs text-black font-bold">{{ modalConfig.isMinimized ? "+" : "−" }}</span>
+          </button>
+          {{ modalConfig.id }}
+          <button
+            class="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer"
+            @click="closeModals(modalConfig.id)"
+          >
+            <span class="text-xs text-white font-bold">X</span>
+          </button>
+        </div>
+      </div>
+
+      <div v-if="!modalConfig.isMinimized" class="bg-gray-100 rounded-b-lg">
+        <component
+          v-if="modalConfigComp.component && componentMap[modalConfigComp.component]"
+          :is="componentMap[modalConfigComp.component]"
+        />
+        <div v-else class="p-6">
+          <p class="text-gray-600">{{ modalConfig.title }} content goes here</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import type { ModalConfig } from "~/types/type";
+import Music from "./Music.vue";
+
+interface Props {
+  modalConfig: ModalConfig;
+}
+const componentMap = {
+  Music
+};
+
+interface ModalConf {
+  component?: keyof typeof componentMap;
+}
+
+const modalConfigComp = ref<ModalConf>({
+  component: "Music"
+});
+
+const props = defineProps<Props>();
+const {
+  closeModal: closeModalStore,
+  minimizeModal: minimizeModalStore,
+  updateModalPosition,
+  bringToFront: bringToFrontStore
+} = useModal();
+
+const modalRef = ref<HTMLElement>();
+const headerRef = ref<HTMLElement>();
+
+const position = ref(props.modalConfig.position);
+const isDragging = ref(false);
+const dragStart = ref({ x: 0, y: 0 });
+
+watch(
+  () => props.modalConfig.position,
+  (newPos) => {
+    position.value = newPos;
+  },
+  { deep: true }
+);
+
+const startDrag = (event: MouseEvent) => {
+  isDragging.value = true;
+  dragStart.value = {
+    x: event.clientX - position.value.x,
+    y: event.clientY - position.value.y
+  };
+
+  document.addEventListener("mousemove", onDrag);
+  document.addEventListener("mouseup", stopDrag);
+  event.preventDefault();
+};
+
+const onDrag = (event: MouseEvent) => {
+  if (!isDragging.value) return;
+
+  const newPosition = {
+    x: event.clientX - dragStart.value.x,
+    y: event.clientY - dragStart.value.y
+  };
+
+  position.value = newPosition;
+  updateModalPosition(props.modalConfig.id, newPosition);
+};
+
+const stopDrag = () => {
+  isDragging.value = false;
+  document.removeEventListener("mousemove", onDrag);
+  document.removeEventListener("mouseup", stopDrag);
+};
+
+const closeModals = (id: string) => {
+  closeModalStore(id);
+};
+
+const minimizeModal = () => {
+  minimizeModalStore(props.modalConfig.id);
+};
+
+const bringToFront = () => {
+  bringToFrontStore(props.modalConfig.id);
+};
+
+onUnmounted(() => {
+  document.removeEventListener("mousemove", onDrag);
+  document.removeEventListener("mouseup", stopDrag);
+});
+</script>
