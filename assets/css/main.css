@@ -4,8 +4,12 @@
 }
 * {
   font-family: cursive;
+  border-color: var(--border);
+  outline-color: var(--ring);
 }
 :root {
   --primary: #2f2010;
   --accent: #a65330;
+  --border: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
 }

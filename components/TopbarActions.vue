@@ -61,7 +61,7 @@ const appItems = [
   {
     name: "Apps",
     children: [
-      { id: 3, icon: "⏰", label: "Timer", component: "Music" },
+      { id: 3, icon: "⏰", label: "Timer", component: "Timer" },
       { id: 4, icon: "📝", label: "To-Do List", component: "Music" },
       { id: 5, icon: "🪴", label: "Ambience", component: "Music" },
       { id: 6, icon: "🎧", label: "Music Player", component: "Music" },

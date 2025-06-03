@@ -1,11 +1,10 @@
 import type { ModalConfig } from "~/types/type";
-import { useState, reactive } from "#imports";
 
 export const useModal = () => {
   const modals = useState<ModalConfig[]>("modals", () => []);
   const highestZIndex = ref<number>(100);
 
-  function openModal(id: string, title: string, component?: string) {
+  function openModal(id: string, title: string, component: string) {
     const existing = modals.value.find((m) => m.id === id);
 
     if (existing) {

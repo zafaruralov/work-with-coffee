@@ -3,7 +3,7 @@
     <div
       ref="modalRef"
       class="absolute bg-white rounded-lg shadow-xl pointer-events-auto"
-      :class="{ 'w-full max-w-2xl': !modalConfig.isMinimized, 'w-64': modalConfig.isMinimized }"
+      :class="{ 'w-[476px]': !modalConfig.isMinimized, 'w-64': modalConfig.isMinimized }"
       :style="{
         transform: `translate(${position.x}px, ${position.y}px)`,
         left: '50%',
@@ -15,18 +15,17 @@
     >
       <div
         ref="headerRef"
-        class="bg-gray-800 text-white px-4 py-3 rounded-t-lg cursor-move select-none flex items-center justify-between"
+        class="bg-[#2f2010] text-white px-4 py-3 rounded-t-lg cursor-move select-none flex items-center justify-between"
         @mousedown="startDrag"
       >
         <h2 class="text-lg font-semibold">{{ modalConfig.title }}</h2>
         <div class="flex items-center space-x-2">
           <button
-            class="w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors"
+            class="cursor-pointer w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center hover:bg-yellow-600 transition-colors"
             @click="minimizeModal"
           >
-            <span class="text-xs text-black font-bold">{{ modalConfig.isMinimized ? "+" : "−" }}</span>
+            <span class="text-xs text-white font-bold">{{ modalConfig.isMinimized ? "+" : "−" }}</span>
           </button>
-          {{ modalConfig.id }}
           <button
             class="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center hover:bg-red-600 transition-colors cursor-pointer"
             @click="closeModals(modalConfig.id)"
@@ -36,11 +35,8 @@
         </div>
       </div>
 
-      <div v-if="!modalConfig.isMinimized" class="bg-gray-100 rounded-b-lg">
-        <component
-          v-if="modalConfigComp.component && componentMap[modalConfigComp.component]"
-          :is="componentMap[modalConfigComp.component]"
-        />
+      <div v-show="!modalConfig.isMinimized" class="bg-gray-100 rounded-b-lg overflow-auto p-4">
+        <component v-if="componentMap[modalConfig.component]" :is="componentMap[modalConfig.component]" />
         <div v-else class="p-6">
           <p class="text-gray-600">{{ modalConfig.title }} content goes here</p>
         </div>
@@ -52,21 +48,15 @@
 <script setup lang="ts">
 import type { ModalConfig } from "~/types/type";
 import Music from "./Music.vue";
+import Timer from "./Timer.vue";
 
 interface Props {
   modalConfig: ModalConfig;
 }
-const componentMap = {
-  Music
+const componentMap: any = {
+  Music,
+  Timer
 };
-
-interface ModalConf {
-  component?: keyof typeof componentMap;
-}
-
-const modalConfigComp = ref<ModalConf>({
-  component: "Music"
-});
 
 const props = defineProps<Props>();
 const {
