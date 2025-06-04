@@ -121,8 +121,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, nextTick } from "vue";
-
 interface Task {
   id: number;
   text: string;
@@ -130,21 +128,19 @@ interface Task {
   order: number;
 }
 
-// Reactive state
 const newTaskText = ref("");
-const tasks = ref<Task[]>([{ id: 1, text: "Example task", status: "todo", order: 0 }]);
+const tasks = ref<Task[]>([]);
 const draggedTask = ref<Task | null>(null);
 const draggedIndex = ref<number>(-1);
 const editingTaskId = ref<number | null>(null);
 const editingText = ref("");
 
 const sectionsExpanded = ref({
-  todo: false, // Changed to false to match your design
+  todo: false,
   inprogress: false,
   done: false
 });
 
-// Computed properties
 const todoTasks = computed(() => {
   return tasks.value.filter((task) => task.status === "todo").sort((a, b) => a.order - b.order);
 });
