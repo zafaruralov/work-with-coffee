@@ -2,8 +2,8 @@
   <div v-if="modalConfig.isOpen" class="fixed inset-0 pointer-events-none" :style="{ zIndex: modalConfig.zIndex }">
     <div
       ref="modalRef"
-      class="absolute bg-white rounded-lg shadow-xl pointer-events-auto"
-      :class="{ 'w-[476px]': !modalConfig.isMinimized, 'w-64': modalConfig.isMinimized }"
+      class="absolute bg-white rounded-lg shadow-xl pointer-events-auto min-h-24 h-[600px]"
+      :class="{ 'w-100': !modalConfig.isMinimized, 'w-64': modalConfig.isMinimized }"
       :style="{
         transform: `translate(${position.x}px, ${position.y}px)`,
         left: '50%',
@@ -35,7 +35,7 @@
         </div>
       </div>
 
-      <div v-show="!modalConfig.isMinimized" class="bg-gray-100 rounded-b-lg overflow-auto p-4">
+      <div v-show="!modalConfig.isMinimized" class="bg-gray-100 rounded-b-lg overflow-auto p-4 h-[100%]">
         <component v-if="componentMap[modalConfig.component]" :is="componentMap[modalConfig.component]" />
         <div v-else class="p-6">
           <p class="text-gray-600">{{ modalConfig.title }} content goes here</p>
