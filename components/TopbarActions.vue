@@ -66,7 +66,7 @@ const appItems = [
       { id: 6, icon: "🎧", label: "Music Player", component: "Music" },
       { id: 7, icon: "📓", label: "Notepad", component: "Music" },
       { id: 8, icon: "🔖", label: "Bookmark", component: "Music" },
-      { id: 9, icon: "⚙️", label: "Settings", component: "Music" }
+      { id: 9, icon: "⚙️", label: "Settings", component: "Settings" }
     ]
   },
   {

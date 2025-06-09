@@ -50,6 +50,7 @@ import type { ModalConfig } from "~/types/type";
 import Music from "./Music.vue";
 import Timer from "./Timer.vue";
 import ToDoList from "./ToDoList.vue";
+import Settings from "./Settings.vue";
 
 interface Props {
   modalConfig: ModalConfig;
@@ -57,7 +58,8 @@ interface Props {
 const componentMap: any = {
   Music,
   Timer,
-  ToDoList
+  ToDoList,
+  Settings
 };
 
 const props = defineProps<Props>();

@@ -8,6 +8,8 @@
   outline-color: var(--ring);
 }
 :root {
+  --muted-foreground: oklch(0.556 0 0);
+  --muted: oklch(0.97 0 0);
   --primary: #2f2010;
   --accent: #a65330;
   --border: oklch(0.922 0 0);
