@@ -1,5 +1,5 @@
 <template>
-  <div class="p-4 flex gap-4 flex-col h-full bg-stone-50">
+  <div class="p-4 flex gap-4 flex-col h-full bg-stone-50 shadow-lg rounded-xl">
     <div class="flex">
       <input
         v-model="newTaskText"

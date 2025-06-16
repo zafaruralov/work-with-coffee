@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col items-center justify-start text-secondary h-full p-4">
-    <div class="w-full">
+  <div class="flex flex-col items-center justify-start text-secondary h-full p-4 shadow-lg rounded-xl">
+    <div class="w-full flex flex-col gap-8">
       <div
         class="h-10 items-center justify-center rounded-md bg-muted p-1 text-muted-foreground grid grid-cols-2 gap-2"
       >
@@ -24,6 +24,7 @@
               class="cursor-pointer border-2 transition-colors border-muted hover:border-primary/50 bg-muted rounded-md overflow-hidden flex items-center justify-center h-[60px] sm:h-[70px]"
               role="button"
               tabindex="0"
+              @click="removeImage"
             >
               <div class="text-center text-xs sm:text-sm font-medium">No Image</div>
             </div>
@@ -76,17 +77,29 @@
           </div>
         </div>
         <div class="flex justify-end gap-2 w-full mt-4">
-          <!-- <button @click="close" class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100">
+          <button
+            @click="handleClose"
+            class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 cursor-pointer"
+          >
             Cancel
-          </button> -->
-          <button @click="apply" class="px-4 py-2 bg-[#a65330] text-white rounded-md hover:bg-[#8a4529]">Apply</button>
+          </button>
+          <button @click="apply" class="px-4 py-2 bg-[#a65330] text-white rounded-md hover:bg-[#8a4529] cursor-pointer">
+            Apply
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
+import type { ModalConfig } from "~/types/type";
+
 const { selectedImage, selectedFit, backgroundImage, fitOptions } = useBackground();
+
+const props = defineProps<{
+  modalConfig: ModalConfig;
+}>();
+const { closeModal } = useModal();
 
 const tempSelectedImage = ref(selectedImage.value);
 const tempSelectedFit = ref(selectedFit.value);
@@ -111,6 +124,13 @@ const handleFileUpload = (event: Event) => {
 const iconToggle = (val: string) => {
   tempSelectedImage.value = val;
   apply();
+};
+const removeImage = () => {
+  selectedImage.value = "";
+};
+
+const handleClose = () => {
+  closeModal(props.modalConfig.id);
 };
 
 const apply = () => {

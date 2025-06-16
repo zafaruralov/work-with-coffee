@@ -15,7 +15,10 @@
         {{ item.name }}
       </button>
 
-      <div v-if="activeDropdown === item.name" class="absolute mt-2 w-56 bg-white text-black shadow-lg rounded p-2">
+      <div
+        v-if="activeDropdown === item.name"
+        class="absolute mt-2 w-56 bg-white text-black shadow-lg rounded p-2 z-999"
+      >
         <div v-if="item.name === 'About'" class="">
           <p class="" v-if="item.name === 'About'">version</p>
         </div>
@@ -46,7 +49,7 @@
     </div>
     <!-- </div> -->
   </div>
-  <Modal v-for="modal in getOpenModals" :key="modal.id" :modal-config="modal" />
+  <Modal v-for="(modal, index) in getOpenModals" :key="modal.id" :modal-config="modal" :z-index="100 + index" />
 </template>
 <script setup lang="ts">
 const { getOpenModals, openModal } = useModal();
@@ -55,7 +58,7 @@ const appItems = [
     name: "Menu",
     children: [
       { id: 1, icon: "🔧", label: "Blog", component: "Music" },
-      { id: 2, icon: "📂", label: "Feedback", component: "Music" }
+      { id: 2, icon: "📂", label: "Feedback" }
     ]
   },
   {
@@ -81,6 +84,9 @@ const appItems = [
 const openApp = (child: { label: string; component?: string }) => {
   if (child.component) {
     openModal(child.label, child.label, child.component);
+    activeDropdown.value = null;
+  } else {
+    window.open("https://t.me/uralovzafar", "_blank");
   }
 };
 

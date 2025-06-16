@@ -1,8 +1,8 @@
 <template>
-  <div v-if="modalConfig.isOpen" class="fixed inset-0 pointer-events-none" :style="{ zIndex: modalConfig.zIndex }">
+  <div v-if="modalConfig.isOpen" class="fixed inset-0 pointer-events-none" :style="{ zIndex: zIndex }">
     <div
       ref="modalRef"
-      class="absolute bg-white rounded-lg shadow-xl pointer-events-auto min-h-24 h-[600px]"
+      class="absolute bg-white rounded-lg shadow-xl pointer-events-auto min-h-2 max-h-[600px]"
       :class="{ 'w-100': !modalConfig.isMinimized, 'w-64': modalConfig.isMinimized }"
       :style="{
         transform: `translate(${position.x}px, ${position.y}px)`,
@@ -36,7 +36,11 @@
       </div>
 
       <div v-show="!modalConfig.isMinimized" class="bg-gray-100 rounded-b-lg overflow-auto p-4 h-[100%]">
-        <component v-if="componentMap[modalConfig.component]" :is="componentMap[modalConfig.component]" />
+        <component
+          v-if="componentMap[modalConfig.component]"
+          :is="componentMap[modalConfig.component]"
+          :modal-config="modalConfig"
+        />
         <div v-else class="p-6">
           <p class="text-gray-600">{{ modalConfig.title }} content goes here</p>
         </div>
@@ -51,15 +55,18 @@ import Music from "./Music.vue";
 import Timer from "./Timer.vue";
 import ToDoList from "./ToDoList.vue";
 import Settings from "./Settings.vue";
+import Feedback from "./Feedback.vue";
 
 interface Props {
   modalConfig: ModalConfig;
+  zIndex: number;
 }
 const componentMap: any = {
   Music,
   Timer,
   ToDoList,
-  Settings
+  Settings,
+  Feedback
 };
 
 const props = defineProps<Props>();
@@ -98,12 +105,21 @@ const startDrag = (event: MouseEvent) => {
 };
 
 const onDrag = (event: MouseEvent) => {
-  if (!isDragging.value) return;
+  if (!isDragging.value || !modalRef.value || !headerRef.value) return;
 
-  const newPosition = {
-    x: event.clientX - dragStart.value.x,
-    y: event.clientY - dragStart.value.y
-  };
+  const modalWidth = modalRef.value.offsetWidth;
+  const headerHeight = headerRef.value.offsetHeight;
+
+  let newX = event.clientX - dragStart.value.x;
+  let newY = event.clientY - dragStart.value.y;
+
+  const maxX = window.innerWidth - modalWidth;
+  const maxY = window.innerHeight - headerHeight;
+
+  newX = Math.min(Math.max(0, newX), maxX);
+  newY = Math.min(Math.max(0, newY), maxY);
+
+  const newPosition = { x: newX, y: newY };
 
   position.value = newPosition;
   updateModalPosition(props.modalConfig.id, newPosition);

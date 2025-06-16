@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white p-4 flex flex-col justify-start items-center h-full gap-6">
+  <div class="bg-white p-4 flex flex-col justify-start items-center h-full gap-6 shadow-lg rounded-xl">
     <div class="flex flex-col gap-2 items-center">
       <span class="text-2xl font-semibold"> {{ currentMode }} </span>
       <div class="text-6xl font-mono mb-6 tabular-nums">

@@ -12,13 +12,15 @@ export const useModal = () => {
       existing.isMinimized = false;
       existing.zIndex = ++highestZIndex.value;
     } else {
+      const offset = modals.value.length * 50;
+
       modals.value.push(
         reactive({
           id,
           title,
           component,
           isOpen: true,
-          position: { x: 300, y: 300 },
+          position: { x: offset, y: offset },
           isMinimized: false,
           zIndex: ++highestZIndex.value
         })
@@ -48,10 +50,10 @@ export const useModal = () => {
   }
 
   function bringToFront(id: string) {
-    const modal = modals.value.find((m) => m.id === id);
-    if (modal) {
-      modal.zIndex = ++highestZIndex.value;
-    }
+    const index = modals.value.findIndex((m) => m.id === id);
+    if (index === -1) return;
+    const modal = modals.value.splice(index, 1)[0];
+    modals.value.push(modal);
   }
 
   const getOpenModals = computed(() => modals.value.filter((modal) => modal.isOpen));
