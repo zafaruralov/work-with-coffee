@@ -8,10 +8,12 @@
   outline-color: var(--ring);
 }
 :root {
+  --radix-slider-thumb-transform: translateX(-50%);
   --muted-foreground: oklch(0.556 0 0);
   --muted: oklch(0.97 0 0);
   --primary: #2f2010;
   --accent: #a65330;
   --border: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
+  --radix-slider-thumb-transform: translateX(-50%);
 }
