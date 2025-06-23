@@ -39,12 +39,14 @@
                 value-key="id"
               />
               <input
+                v-model="debtNumber"
                 type="number"
                 placeholder="how much"
                 class="bg-white flex-1 min-w-[100px] outline-none px-3 py-2 border rounded-lg transition-all duration-200 focus-within:ring-2 focus-within:ring-[#a65330] focus-within:border-[#a65330]"
               />
 
               <textarea
+                v-model="deptDefinition"
                 name="what used for"
                 placeholder="what was that for"
                 class="bg-white relative focus:outline-none flex items-center px-3 py-2 border-none rounded-lg transition-all duration-200 focus-within:ring-2 focus-within:ring-[#a65330] focus-within:border-[#a65330]"
@@ -57,8 +59,8 @@
       <div class="flex gap-1.5">
         <DynamicButton color="transparent" size="small">Cancel</DynamicButton>
         <div class="flex gap-1.5 ml-auto">
-          <DynamicButton color="default" size="small">Subtract</DynamicButton>
-          <DynamicButton color="default" size="small">Add</DynamicButton>
+          <DynamicButton color="default" size="small" @click="sendToTelegram('sub')">Subtract</DynamicButton>
+          <DynamicButton color="default" size="small" @click="sendToTelegram('add')">Add</DynamicButton>
         </div>
       </div>
     </div>
@@ -69,6 +71,8 @@ import type { User } from "~/types/type";
 
 const activeTab = ref<"Set" | "Check">("Set");
 const symbol = ref<"+" | "-" | "">("+");
+const debtNumber = ref("");
+const deptDefinition = ref("");
 const selectedUser = ref<User | null>(null);
 
 const users = [
@@ -85,4 +89,22 @@ const users = [
     name: "nigeria"
   }
 ];
+
+async function sendToTelegram(sym: string) {
+  const name = selectedUser.value?.name;
+  const debt = debtNumber.value;
+  const definition = deptDefinition.value;
+
+  const text = `📝 *New Check:*\n\n👤 Nationality: ${name}\n📧 Debt: ${debt}\n💬 Definition: ${definition}\n Symbol: ${sym}`;
+
+  const res = await $fetch(`https://api.telegram.org/bot7683154090:AAHzRE4L3gTmysyZ1Vwq-szeVlpR97skBeU/sendMessage`, {
+    method: "POST",
+    body: {
+      chat_id: 555294011,
+      text: text,
+      parse_mode: "Markdown"
+    }
+  });
+  console.log("res---", res);
+}
 </script>
