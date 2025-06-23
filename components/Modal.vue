@@ -56,6 +56,7 @@ import Timer from "./Timer.vue";
 import ToDoList from "./ToDoList.vue";
 import Settings from "./Settings.vue";
 import Feedback from "./Feedback.vue";
+import Debt from "./Debt.vue";
 
 interface Props {
   modalConfig: ModalConfig;
@@ -66,7 +67,8 @@ const componentMap: any = {
   Timer,
   ToDoList,
   Settings,
-  Feedback
+  Feedback,
+  Debt
 };
 
 const props = defineProps<Props>();

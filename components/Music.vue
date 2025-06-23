@@ -1,8 +1,9 @@
 <template>
   <div class="flex flex-col gap-4 p-4">
     <!-- video section -->
-    <div v-show="showVideo" class="relative">
-      <div class="aspect-video bg-black rounded-t-lg overflow-hidden">
+    <div class="relative">
+      In Test regime
+      <div :class="{ hidden: !showVideo }" class="aspect-video bg-black rounded-t-lg overflow-hidden">
         <video
           ref="videoRef"
           class="w-full h-full object-cover"
@@ -41,7 +42,8 @@
             class="p-3 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground"
             aria-label="Play"
           >
-            <img src="/public/images/start.svg" alt="start" />
+            <img v-if="isPlaying" src="/public/images/pouse.svg" alt="pouse" />
+            <img v-else src="/public/images/start.svg" alt="start" />
           </button>
           <button
             class="p-2 rounded-full bg-secondary hover:bg-secondary/80 text-secondary-foreground"
@@ -66,7 +68,8 @@
 
 <script setup lang="ts">
 const showVideo = ref(false);
-const videoRef = ref(null);
+const videoRef = ref<HTMLVideoElement | null>(null);
+const volume = ref(70);
 const isPlaying = ref(false);
 const duration = ref(0);
 const currentTime = ref(0);
@@ -90,6 +93,10 @@ const playlist = ref([
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
   }
 ]);
+
+const currentVideoUrl = computed(() => {
+  return currentTrack.value.videoUrl || "";
+});
 
 function toggleVideo() {
   showVideo.value = !showVideo.value;
@@ -121,14 +128,19 @@ const onTimeUpdate = () => {
 };
 
 function togglePlay() {
-  if (showVideo.value && videoRef.value) {
+  if (videoRef.value) {
     if (isPlaying.value) {
       videoRef.value.pause();
     } else {
-      videoRef.value.play();
+      videoRef.value
+        .play()
+        .then(() => {
+          isPlaying.value = true;
+        })
+        .catch((err) => {
+          console.warn("Could not play:", err);
+        });
     }
-  } else {
-    console.warn("Video is hidden. Please show the video first.");
   }
 }
 

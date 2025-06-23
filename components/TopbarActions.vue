@@ -78,6 +78,9 @@ const appItems = [
       { id: 10, icon: "ℹ️", label: "Info", component: "Music" },
       { id: 11, icon: "❤️", label: "Github", component: "Music" }
     ]
+  },
+  {
+    name: "Debt"
   }
 ];
 
@@ -114,6 +117,10 @@ onMounted(() => {
 });
 
 function toggleDropdown(name: string) {
-  activeDropdown.value = activeDropdown.value === name ? null : name;
+  if (name === "Debt") {
+    openApp({ label: "Debt", component: "Debt" });
+  } else {
+    activeDropdown.value = activeDropdown.value === name ? null : name;
+  }
 }
 </script>

@@ -2,6 +2,14 @@
 .bg-primary {
   background-color: var(--primary);
 }
+body {
+  background: var(--accent);
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 * {
   font-family: cursive;
   border-color: var(--border);
