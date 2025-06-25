@@ -34,7 +34,14 @@
               <DynamicSelector
                 v-model="selectedUser"
                 :options="users"
-                placeholder="Select a user..."
+                placeholder="who are you"
+                display-key="name"
+                value-key="id"
+              />
+              <DynamicSelector
+                v-model="ownedUser"
+                :options="users"
+                placeholder="who ows you"
                 display-key="name"
                 value-key="id"
               />
@@ -52,16 +59,29 @@
                 class="bg-white relative focus:outline-none flex items-center px-3 py-2 border-none rounded-lg transition-all duration-200 focus-within:ring-2 focus-within:ring-[#a65330] focus-within:border-[#a65330]"
               ></textarea>
             </div>
-            <h1 v-else>In Progress</h1>
+            <!-- TODO -->
+            <div v-else class="flex flex-col gap-3">
+              <div v-if="isLoadingDebts">Loading debts...</div>
+              <div v-else-if="fetchedDebts.length === 0">No debts found.</div>
+              <ul v-else class="space-y-2 max-h-[420px] overflow-auto no-scrollbar">
+                <li v-for="item in fetchedDebts" :key="item.id" class="bg-white p-3 rounded-lg shadow border">
+                  <p class="font-semibold">{{ item.name }} → {{ item.ownedUser }}</p>
+                  <p>💸 {{ item.debt }} | {{ item.symbol }}</p>
+                  <p>🗒️ {{ item.definition || "No description" }}</p>
+                  <p class="text-xs text-gray-500">🕒 {{ new Date(item.createdAt).toLocaleString("uz-UZ") }}</p>
+                </li>
+              </ul>
+            </div>
           </div>
         </Transition>
       </div>
       <div class="flex gap-1.5">
         <DynamicButton color="transparent" size="small">Cancel</DynamicButton>
-        <div class="flex gap-1.5 ml-auto">
+        <div class="flex gap-1.5 ml-auto" v-if="activeTab === 'Set'">
           <DynamicButton color="default" size="small" @click="sendToTelegram('sub')">Subtract</DynamicButton>
           <DynamicButton color="default" size="small" @click="sendToTelegram('add')">Add</DynamicButton>
         </div>
+        <div class="" v-else>no button for now</div>
       </div>
     </div>
   </div>
@@ -74,6 +94,10 @@ const symbol = ref<"+" | "-" | "">("+");
 const debtNumber = ref("");
 const deptDefinition = ref("");
 const selectedUser = ref<User | null>(null);
+const ownedUser = ref<User | null>(null);
+
+const fetchedDebts = ref<any[]>([]);
+const isLoadingDebts = ref(false);
 
 const users = [
   {
@@ -90,21 +114,40 @@ const users = [
   }
 ];
 
+watch(
+  activeTab,
+  async (tab) => {
+    if (tab === "Check") {
+      isLoadingDebts.value = true;
+      try {
+        const res = await $fetch("http://localhost:3001/api/debts");
+        fetchedDebts.value = res;
+      } catch (err) {
+        console.error("Failed to fetch debts", err);
+        fetchedDebts.value = [];
+      } finally {
+        isLoadingDebts.value = false;
+      }
+    }
+  },
+  { immediate: true }
+);
+
 async function sendToTelegram(sym: string) {
   const name = selectedUser.value?.name;
+  const owned = ownedUser.value?.name;
   const debt = debtNumber.value;
   const definition = deptDefinition.value;
 
-  const text = `📝 *New Check:*\n\n👤 Nationality: ${name}\n📧 Debt: ${debt}\n💬 Definition: ${definition}\n Symbol: ${sym}`;
-
-  const res = await $fetch(`https://api.telegram.org/bot7683154090:AAHzRE4L3gTmysyZ1Vwq-szeVlpR97skBeU/sendMessage`, {
+  await $fetch("http://localhost:3001/api/send-check", {
     method: "POST",
     body: {
-      chat_id: 555294011,
-      text: text,
-      parse_mode: "Markdown"
+      name,
+      owned,
+      debt,
+      definition,
+      sym
     }
   });
-  console.log("res---", res);
 }
 </script>

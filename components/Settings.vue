@@ -104,6 +104,9 @@ const { closeModal } = useModal();
 const tempSelectedImage = ref(selectedImage.value);
 const tempSelectedFit = ref(selectedFit.value);
 const uploadedImage = ref<string | null>(null);
+const clickCount = ref(0);
+
+let clickTimer: ReturnType<typeof setTimeout> | null = null;
 
 const handleFileUpload = (event: Event) => {
   const input = event.target as HTMLInputElement;
@@ -122,7 +125,30 @@ const handleFileUpload = (event: Event) => {
   }
 };
 const iconToggle = (val: string) => {
-  tempSelectedImage.value = val;
+  clickCount.value++;
+
+  // if (clickTimer) {
+  //   clearTimeout(clickTimer);
+  // }
+
+  clickTimer = setTimeout(() => {
+    clickCount.value = 0;
+    clickTimer = null;
+  }, 5000);
+
+  if (clickCount.value === 3) {
+    tempSelectedImage.value = "/images/girl-on-back.jpg";
+    clickCount.value = 0;
+    selectedFit.value = "fit";
+
+    if (clickTimer) {
+      clearTimeout(clickTimer);
+      clickTimer = null;
+    }
+  } else {
+    tempSelectedImage.value = val;
+  }
+
   apply();
 };
 const removeImage = () => {
