@@ -23,6 +23,10 @@ input::-webkit-inner-spin-button {
   border-color: var(--border);
   outline-color: var(--ring);
 }
+li {
+  list-style: none;
+}
+
 :root {
   --radix-slider-thumb-transform: translateX(-50%);
   --muted-foreground: oklch(0.556 0 0);
