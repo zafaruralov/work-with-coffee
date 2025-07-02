@@ -76,7 +76,7 @@ const appItems = [
     name: "About",
     children: [
       { id: 10, icon: "ℹ️", label: "Info", component: "Music" },
-      { id: 11, icon: "❤️", label: "Github", component: "Music" }
+      { id: 11, icon: "❤️", label: "Github" }
     ]
   },
   {
@@ -88,8 +88,10 @@ const openApp = (child: { label: string; component?: string }) => {
   if (child.component) {
     openModal(child.label, child.label, child.component);
     activeDropdown.value = null;
-  } else {
+  } else if (child.label === "Feedback") {
     window.open("https://t.me/uralovzafar", "_blank");
+  } else if (child.label === "Github") {
+    window.open("http://github.com/zafaruralov/", "_blank");
   }
 };
 

@@ -1,0 +1,101 @@
+@keyframes anim_01 {
+  0% {
+    transform: scale(0);
+  }
+  20% {
+    transform: scale(3);
+  }
+  50% {
+    transform: scale(1);
+  }
+  90% {
+    transform: scale(5);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes move_01 {
+  0% {
+    transform: translate(0) scale(0);
+  }
+  20% {
+    transform: translate(-100px, -100px) scale(1);
+  }
+  40% {
+    transform: translate(-100px, 100px) scale(1);
+  }
+  60% {
+    transform: translate(100px, 100px) scale(1);
+  }
+  80% {
+    transform: translate(100px, -100px) scale(1);
+  }
+  100% {
+    transform: translate(0) scale(1);
+  }
+}
+
+@keyframes move_02 {
+  0% {
+    transform: translate(0) scale(0);
+  }
+  20% {
+    transform: translate(-100px, 100px) scale(1);
+  }
+  40% {
+    transform: translate(100px, 100px) scale(1);
+  }
+  60% {
+    transform: translate(100px, -100px) scale(1);
+  }
+  80% {
+    transform: translate(-100px, -100px) scale(1);
+  }
+  100% {
+    transform: translate(0) scale(1);
+  }
+}
+
+@keyframes move_03 {
+  0% {
+    transform: translate(0px) scale(0);
+  }
+  20% {
+    transform: translate(100px, 100px) scale(1);
+  }
+  40% {
+    transform: translate(100px, -100px) scale(1);
+  }
+  60% {
+    transform: translate(-100px, -100px) scale(1);
+  }
+  80% {
+    transform: translate(-100px, 100px) scale(1);
+  }
+  100% {
+    transform: translate(0) scale(1);
+  }
+}
+
+@keyframes move_04 {
+  0% {
+    transform: translate(0px) scale(0);
+  }
+  20% {
+    transform: translate(100px, -100px) scale(1);
+  }
+  40% {
+    transform: translate(-100px, -100px) scale(1);
+  }
+  60% {
+    transform: translate(-100px, 100px) scale(1);
+  }
+  80% {
+    transform: translate(100px, 100px) scale(1);
+  }
+  100% {
+    transform: translate(0) scale(1);
+  }
+}

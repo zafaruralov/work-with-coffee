@@ -104,4 +104,11 @@ const getOpenPosition = (index: number): string => {
 .delay-900 {
   transition-delay: 0.9s;
 }
+
+@media (min-width: 1200px) {
+  /* .bottom-\[0\%\].left-\[calc\(50\%-88px\)\] {
+    left: calc(50% - 120px);
+  } */
+  /* TODO */
+}
 </style>
