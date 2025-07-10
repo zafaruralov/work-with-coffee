@@ -7,7 +7,7 @@ const isLoading = ref(true);
 onMounted(() => {
   setTimeout(() => {
     isLoading.value = false;
-  }, 4800);
+  }, 4750);
 });
 </script>
 
