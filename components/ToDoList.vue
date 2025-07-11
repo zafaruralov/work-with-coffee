@@ -105,7 +105,7 @@
                   </select>
                   <button @click="startEdit(task)" @mousedown.stop @dragstart.prevent>
                     <div class="relative hover:bg-blue-200 p-1 rounded">
-                      <NuxtImg :src="`/public/images/pen.svg" alt="pen`" class="w-[14px]" />
+                      <NuxtImg :src="`/images/pen.svg`" alt="pen" class="w-[14px]" />
                     </div>
                   </button>
                   <button @click="deleteTask(task.id)" @mousedown.stop @dragstart.prevent>
