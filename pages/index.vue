@@ -7,14 +7,12 @@ const isLoading = ref(true);
 onMounted(() => {
   setTimeout(() => {
     isLoading.value = false;
-    console.log(isLoading.value);
   }, 4750);
 });
 </script>
 
 <template>
   <div class="circle" v-if="isLoading">
-    {{ isLoading }}
     <div></div>
     <div></div>
     <div></div>

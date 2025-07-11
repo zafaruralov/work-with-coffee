@@ -35,7 +35,7 @@
               @click="$refs.fileInput.click()"
             >
               <template v-if="uploadedImage">
-                <img
+                <NuxtImg
                   :src="uploadedImage"
                   alt="Uploaded Background"
                   decoding="async"
@@ -57,7 +57,7 @@
               :class="tempSelectedImage === image.url ? 'outline' : 'border-transparent hover:border-gray-300'"
               class="cursor-pointer transition-colors rounded-md overflow-hidden aspect-video"
             >
-              <img :src="image.url" alt="Background option" class="object-cover w-full h-full" />
+              <NuxtImg :src="image.url" alt="Background option" class="object-cover w-full h-full" />
 
               <!-- ToDo do i really need it? -->
             </div>

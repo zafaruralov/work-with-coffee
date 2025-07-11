@@ -5,12 +5,15 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "deploy": "gh-pages -d .output/public"
+    "clean": "Remove-Item .output -Recurse -Force",
+    "generate": "nuxi generate",
+    "addNoJekyll": "New-Item -Path .output/public/.nojekyll -ItemType File",
+    "deploy": "gh-pages -d .output/public --add --dotfiles --message 'deploy: force clean'"
   },
   "dependencies": {
+    "@nuxt/image": "^1.10.0",
     "@pinia/nuxt": "^0.11.0",
     "@tailwindcss/vite": "^4.1.7",
     "nuxt": "^3.17.3",
