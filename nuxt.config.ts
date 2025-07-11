@@ -6,6 +6,9 @@ export default defineNuxtConfig({
   components: true,
   modules: ["@pinia/nuxt"],
   css: ["~/assets/css/main.css"],
+  app: {
+    baseURL: "/work-with-coffee/"
+  },
   vite: {
     plugins: [tailwindcss()]
   }
