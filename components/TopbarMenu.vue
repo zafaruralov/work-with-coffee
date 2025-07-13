@@ -14,7 +14,7 @@
       v-for="(item, index) in menuItems"
       :key="item.label"
       :class="[
-        'absolute cursor-pointer bottom-[5%] left-1/2 transform -translate-x-1/2 transition-all duration-400',
+        'absolute cursor-pointer bottom-[6%] left-1/2 transform -translate-x-1/2 transition-all duration-400',
         `delay-${getDelay(index)}`,
         isMenuOpen && getOpenPosition(index)
       ]"
@@ -73,12 +73,12 @@ const getDelay = (index: number): string => {
 
 const getOpenPosition = (index: number): string => {
   const positions = [
-    "bottom-[0%] left-[calc(50%-88px)] delay-150",
-    "bottom-[13%] left-[calc(50%-90px)] delay-100",
-    "bottom-[20%] left-[calc(50%-45px)] delay-50",
-    "bottom-[20%] left-[calc(51.9%)] delay-150",
-    "bottom-[13%] left-[calc(54.5%)] delay-100",
-    "bottom-[0%] left-[calc(54.4%)] delay-200"
+    "bottom-[0%] left-[calc(42%)] delay-150",
+    "bottom-[13%] left-[calc(41%)] delay-100",
+    "bottom-[21%] left-[calc(46%)] delay-50",
+    "bottom-[22%] left-[calc(54%)] delay-150",
+    "bottom-[13%] left-[calc(60%)] delay-100",
+    "bottom-[0%] left-[calc(58%)] delay-200"
   ];
   return positions[index] || "";
 };
