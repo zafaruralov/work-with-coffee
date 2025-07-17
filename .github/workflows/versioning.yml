@@ -36,11 +36,10 @@ jobs:
         run: node update_version.js $NEW_VERSION
 
       - name: Commit version bump
-        env:
-          PAT: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         run: |
-          git config user.name "Zafar Uralov"
-          git config user.email "98445861+zafaruralov@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           git add package.json
           git commit -m "[Auto-update] Version updated to $NEW_VERSION [skip ci]" || echo "No changes to commit"
-          git push https://${PAT}@github.com/${{ github.repository }}.git HEAD:main
+          git push origin HEAD:main
