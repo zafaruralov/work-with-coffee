@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+const { getOpenModals } = useModal();
 const { selectedImage, selectedFit, backgroundStyle, backgroundImage, fitOptions } = useBackground();
 
 const isLoading = ref(true);
@@ -26,6 +26,8 @@ onMounted(() => {
     <div class="h-screen w-full flex flex-col p-4 md:p-5 lg:p-6 pb-0">
       <TopbarActions />
       <TopbarMenu />
+
+      <Modal v-for="(modal, index) in getOpenModals" :key="modal.id" :modal-config="modal" :z-index="100 + index" />
     </div>
   </div>
 </template>

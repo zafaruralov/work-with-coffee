@@ -18,7 +18,7 @@
         `delay-${getDelay(index)}`,
         isMenuOpen && getOpenPosition(index)
       ]"
-      @click="openApp(item)"
+      @click.once="openApp(item)"
     >
       <a class="w-10 h-10 rounded-full flex items-center justify-center bg-[#a65330] transition-colors relative group">
         <span
@@ -33,11 +33,10 @@
       </a>
     </li>
   </nav>
-  <Modal v-for="(modal, index) in getOpenModals" :key="modal.id" :modal-config="modal" :z-index="100 + index" />
 </template>
 
 <script setup lang="ts">
-const { getOpenModals, openModal } = useModal();
+const { openModal } = useModal();
 interface MenuItem {
   id: number;
   label: string;

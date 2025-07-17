@@ -22,7 +22,7 @@
             @mousedown.stop
             @dragstart.prevent
           >
-            <NuxtImg :src="`/public/images/handle.svg`" alt="handle icon" />
+            <NuxtImg :src="`/images/handle.svg`" alt="handle icon" />
           </div>
           <h3
             class="font-semibold flex items-center text-primary flex-grow cursor-pointer"
@@ -37,7 +37,7 @@
             <NuxtImg
               :class="sectionsExpanded.todo && 'rotate-[-90deg]'"
               class="transition-all"
-              src="/public/images/dropIcon.svg"
+              :src="`/images/dropIcon.svg`"
               alt="drop icon"
             />
           </span>
@@ -72,7 +72,7 @@
                   @dragend="handleDragEnd"
                   @mousedown.stop
                 >
-                  <NuxtImg :src="`/public/images/handle.svg`" alt="handle" class="w-4 opacity-55" />
+                  <NuxtImg :src="`/images/handle.svg`" alt="handle" class="w-4 opacity-55" />
                 </div>
                 <input
                   v-if="editingTaskId === task.id"
@@ -110,7 +110,7 @@
                   </button>
                   <button @click="deleteTask(task.id)" @mousedown.stop @dragstart.prevent>
                     <div class="relative hover:bg-red-200 p-1 rounded">
-                      <NuxtImg :src="`/public/images/delete.svg`" alt="delete" class="w-[14px]" />
+                      <NuxtImg :src="`/images/delete.svg`" alt="delete" class="w-[14px]" />
                     </div>
                   </button>
                 </div>
@@ -131,7 +131,7 @@
             @mousedown.stop
             @dragstart.prevent
           >
-            <NuxtImg :src="`/public/images/handle.svg`" alt="handle icon" />
+            <NuxtImg :src="`/images/handle.svg`" alt="handle icon" />
           </div>
           <h3
             class="font-semibold flex items-center text-primary flex-grow cursor-pointer"
@@ -146,7 +146,7 @@
             <NuxtImg
               :class="sectionsExpanded.inprogress && 'rotate-[-90deg]'"
               class="transition-all"
-              src="/public/images/dropIcon.svg"
+              src="/images/dropIcon.svg"
               alt="drop icon"
             />
           </span>
@@ -183,7 +183,7 @@
                   @dragend="handleDragEnd"
                   @mousedown.stop
                 >
-                  <NuxtImg :src="`/public/images/handle.svg`" alt="handle" class="w-4 opacity-55" />
+                  <NuxtImg :src="`/images/handle.svg`" alt="handle" class="w-4 opacity-55" />
                 </div>
                 <input
                   v-if="editingTaskId === task.id"
@@ -216,12 +216,12 @@
                   </select>
                   <button @click="startEdit(task)" @mousedown.stop @dragstart.prevent>
                     <div class="relative hover:bg-blue-200 p-1 rounded">
-                      <NuxtImg :src="`/public/images/pen.svg`" alt="pen" class="w-[14px]" />
+                      <NuxtImg :src="`/images/pen.svg`" alt="pen" class="w-[14px]" />
                     </div>
                   </button>
                   <button @click="deleteTask(task.id)" @mousedown.stop @dragstart.prevent>
                     <div class="relative hover:bg-red-200 p-1 rounded">
-                      <NuxtImg :src="`/public/images/delete.svg`" alt="delete" class="w-[14px]" />
+                      <NuxtImg :src="`/images/delete.svg`" alt="delete" class="w-[14px]" />
                     </div>
                   </button>
                 </div>
@@ -242,7 +242,7 @@
             @mousedown.stop
             @dragstart.prevent
           >
-            <NuxtImg :src="`/public/images/handle.svg`" alt="handle icon" />
+            <NuxtImg :src="`/images/handle.svg`" alt="handle icon" />
           </div>
           <h3
             class="font-semibold flex items-center text-primary flex-grow cursor-pointer"
@@ -257,7 +257,7 @@
             <NuxtImg
               :class="sectionsExpanded.done && 'rotate-[-90deg]'"
               class="transition-all"
-              src="/public/images/dropIcon.svg"
+              src="/images/dropIcon.svg"
               alt="drop icon"
             />
           </span>
@@ -294,7 +294,7 @@
                   @dragend="handleDragEnd"
                   @mousedown.stop
                 >
-                  <NuxtImg :src="`/public/images/handle.svg`" alt="handle" class="w-4 opacity-55" />
+                  <NuxtImg :src="`/images/handle.svg`" alt="handle" class="w-4 opacity-55" />
                 </div>
                 <input
                   v-if="editingTaskId === task.id"
@@ -327,12 +327,12 @@
                   </select>
                   <button @click="startEdit(task)" @mousedown.stop @dragstart.prevent>
                     <div class="relative hover:bg-blue-200 p-1 rounded">
-                      <NuxtImg :src="`/public/images/pen.svg`" alt="pen" class="w-[14px]" />
+                      <NuxtImg :src="`/images/pen.svg`" alt="pen" class="w-[14px]" />
                     </div>
                   </button>
                   <button @click="deleteTask(task.id)" @mousedown.stop @dragstart.prevent>
                     <div class="relative hover:bg-red-200 p-1 rounded">
-                      <NuxtImg :src="`/public/images/delete.svg`" alt="delete" class="w-[14px]" />
+                      <NuxtImg :src="`/images/delete.svg`" alt="delete" class="w-[14px]" />
                     </div>
                   </button>
                 </div>

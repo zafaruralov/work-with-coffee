@@ -35,28 +35,28 @@
             class="p-2 rounded-full bg-secondary hover:bg-secondary/80 text-secondary-foreground"
             aria-label="Previous"
           >
-            <NuxtImg :src="`/public/images/previus.svg`" alt="previus" />
+            <NuxtImg :src="`/images/previus.svg`" alt="previus" />
           </button>
           <button
             @click="togglePlay"
             class="p-3 rounded-full bg-primary hover:bg-primary/90 text-primary-foreground"
             aria-label="Play"
           >
-            <NuxtImg v-if="isPlaying" src="/public/images/pouse.svg" alt="pouse" />
-            <NuxtImg v-else :src="`/public/images/start.svg`" alt="start" />
+            <NuxtImg v-if="isPlaying" src="/images/pouse.svg" alt="pouse" />
+            <NuxtImg v-else :src="`/images/start.svg`" alt="start" />
           </button>
           <button
             class="p-2 rounded-full bg-secondary hover:bg-secondary/80 text-secondary-foreground"
             aria-label="Next"
           >
-            <NuxtImg :src="`/public/images/previus.svg`" alt="previus" class="rotate-180" />
+            <NuxtImg :src="`/images/previus.svg`" alt="previus" class="rotate-180" />
           </button>
           <div class="flex justify-center">
             <button
               @click="toggleVideo"
               class="px-3 py-1 text-sm rounded-md border border-border bg-muted flex items-center gap-2"
             >
-              <NuxtImg :src="`/public/images/video.svg`" alt="video svg" />
+              <NuxtImg :src="`/images/video.svg`" alt="video svg" />
               {{ showVideo ? "Hide Video" : "Show Video" }}
             </button>
           </div>
