@@ -5,7 +5,12 @@ const { version } = JSON.parse(readFileSync("./package.json", "utf8"));
 
 export default defineNuxtConfig({
   app: {
-    baseURL: "/"
+    baseURL: "/work-with-coffee/"
+  },
+  image: {
+    staticFilename: "[name][ext]",
+    provider: "static",
+    screens: {}
   },
   runtimeConfig: {
     public: {
@@ -17,14 +22,14 @@ export default defineNuxtConfig({
   components: true,
   modules: ["@pinia/nuxt", "@nuxt/image"],
   css: ["~/assets/css/main.css"],
-  image: {
-    dir: "public",
-    screens: {
-      sm: 320,
-      md: 640,
-      lg: 1024
-    }
-  },
+  // image: {
+  //   dir: "public",
+  //   screens: {
+  //     sm: 320,
+  //     md: 640,
+  //     lg: 1024
+  //   }
+  // },
   vite: {
     plugins: [tailwindcss()]
   }

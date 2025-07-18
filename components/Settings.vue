@@ -57,7 +57,7 @@
               :class="tempSelectedImage === image.url ? 'outline' : 'border-transparent hover:border-gray-300'"
               class="cursor-pointer transition-colors rounded-md overflow-hidden aspect-video"
             >
-              <NuxtImg :src="image.url" alt="Background option" class="object-cover w-full h-full" />
+              <img :src="getImageUrl(image.url)" alt="Background option" class="object-cover w-full h-full" />
 
               <!-- ToDo do i really need it? -->
             </div>
@@ -100,6 +100,9 @@ const props = defineProps<{
   modalConfig: ModalConfig;
 }>();
 const { closeModal } = useModal();
+
+const config = useRuntimeConfig();
+const getImageUrl = (url: string) => `${config.app.baseURL}${url}`;
 
 const tempSelectedImage = ref(selectedImage.value);
 const tempSelectedFit = ref(selectedFit.value);

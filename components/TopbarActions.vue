@@ -3,7 +3,7 @@
     class="flex h-11 items-center gap-1 rounded-md p-1 shadow-xs bg-primary border-secondary border-2 text-white relative justify-between"
   >
     <div class="px-4">
-      <NuxtImg :src="`/images/coffee.webp`" alt="coffee" class="" />
+      <img :src="`${useRuntimeConfig().app.baseURL}images/coffee.webp`" alt="coffee.webp" />
     </div>
 
     <div v-for="item in appItems" :key="item.name" class="relative dropdown-wrapper">
@@ -53,6 +53,7 @@
 const { openModal } = useModal();
 const config = useRuntimeConfig();
 const version = config.public.appVersion;
+
 const appItems = [
   {
     name: "Menu",

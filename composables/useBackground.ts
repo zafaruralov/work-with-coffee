@@ -16,6 +16,7 @@ const fitOptions = ["fit", "fill", "stretch", "tile", "center"] as const;
 type FitMode = (typeof fitOptions)[number];
 
 const selectedImage = ref(backgroundImage[0].url);
+
 const selectedFit = ref<FitMode>("fill");
 
 const backgroundStyle = computed(() => {

@@ -11,7 +11,7 @@
     "clean": "Remove-Item .output -Recurse -Force",
     "generate": "nuxi generate",
     "addNoJekyll": "New-Item -Path .output/public/.nojekyll -ItemType File",
-    "deploy": "gh-pages -d .output/public --add --dotfiles --message 'deploy: force clean'"
+    "deploy": "gh-pages -d .output/public"
   },
   "dependencies": {
     "@nuxt/image": "^1.10.0",
